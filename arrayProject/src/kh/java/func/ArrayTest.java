@@ -150,27 +150,27 @@ public class ArrayTest {
 						break; // for문의 활용성 증대 (이미 중복을 발견하면 이후 반복은 진행 X)
 					}
 				}
-//				int inputNum = sc.nextInt();		// 강의 풀의
-//				if(1<=inputNum && inputNum<=45) {
-//					// 입력범위가 정상인경우
-//					bool = true;
-//					for(int j=0;j<i;j++) {// i=0 → i값 만큼만 반복
-//						if(inputNum==user[j]) {
-//							System.out.println("이미 중복된 번호입니다. 다시 입력해주세요.");
-//							i--;
-//							bool=false;
-//							break;
-//						}
-//					}
-//				}
+				// int inputNum = sc.nextInt(); // 강의 풀의
+				// if(1<=inputNum && inputNum<=45) {
+				// // 입력범위가 정상인경우
+				// bool = true;
+				// for(int j=0;j<i;j++) {// i=0 → i값 만큼만 반복
+				// if(inputNum==user[j]) {
+				// System.out.println("이미 중복된 번호입니다. 다시 입력해주세요.");
+				// i--;
+				// bool=false;
+				// break;
+				// }
+				// }
+				// }
 				if (bool == false) {
 					bool = true;
 					i--;
 					continue;
 				}
-//				if(bool) {							// 강의 풀의
-//					user[i] = inputNum;
-//				}
+				// if(bool) { // 강의 풀의
+				// user[i] = inputNum;
+				// }
 			}
 			for (int i = 0; i < com.length; i++) { // 컴퓨터가 입력 받은 수 저장
 				com[i] = r.nextInt(45) + 1;
@@ -231,6 +231,7 @@ public class ArrayTest {
 			}
 		}
 	}
+
 	public void lottoPlus() { // 로또 프로그램 만들기
 		Scanner sc = new Scanner(System.in);
 		Random r = new Random();
@@ -243,31 +244,31 @@ public class ArrayTest {
 			for (int i = 0; i < user.length; i++) { // 입력 받은 수 저장
 				System.out.print((1 + i) + "번째 번호 입력(1~45) : ");
 				int inputNum = sc.nextInt();
-				if(1<=inputNum && inputNum<=45) {
+				if (1 <= inputNum && inputNum <= 45) {
 					// 입력범위가 정상인경우
 					bool = true;
-					for(int j=0;j<i;j++) {// → i값 만큼만 반복
-						if(inputNum==user[j]) {
+					for (int j = 0; j < i; j++) {// → i값 만큼만 반복
+						if (inputNum == user[j]) {
 							System.out.println("이미 중복된 번호입니다. 다시 입력해주세요.");
 							i--;
-							bool=false;
+							bool = false;
 							break;
 						}
 					}
-				}else {
+				} else {
 					System.out.println("잘못 입력하셨습니다. 1~45 중 한개를 입력해주세요.");
 					i--;
 					continue;
 				}
-				if(bool) {
+				if (bool) {
 					user[i] = inputNum;
 				}
 			}
 			int num = 0;
-			while(bool) {
+			while (bool) {
 				num++;
 				int lotto = 0; // user와 com의 일치 숫자 개수
-				System.out.println("====== 제 "+(num)+"회 당첨번호 ======");
+				System.out.println("====== 제 " + (num) + "회 당첨번호 ======");
 				for (int i = 0; i < com.length; i++) { // 컴퓨터가 입력 받은 수 저장
 					com[i] = r.nextInt(45) + 1;
 				}
@@ -308,10 +309,70 @@ public class ArrayTest {
 				System.out.println();
 				if (lotto == 6) {
 					System.out.println("1등!!!");
-					bool=false;
+					bool = false;
 					break;
 				}
 			}
+		}
+	}
+
+	public void Motel() { // 모텔관리 프로그램
+		Scanner sc = new Scanner(System.in);
+		String version = "v1.0"; // 버전 명
+		boolean[] room = new boolean[10];
+		while (true) {
+			System.out.println("모텔 관리 프로그램 " + version);
+			System.out.println("1. 입실\t 2. 퇴실\t 3. 방보기 4. 종료");
+			System.out.print("선택 > ");
+			int sel = sc.nextInt();
+			switch (sel) {
+			case 1: // 입실
+				System.out.println("몇번방에 입실하시겠습니까?");
+				int selroom = sc.nextInt();
+				if (selroom >= 1 && selroom <= 10) { // 방 번호 범위 내 입력 값
+					if (room[selroom - 1]) { // 입실 중복 발생
+						System.out.println(selroom + "번 방은 현재 손님이 있습니다.");
+					} else if (room[selroom - 1] == false) { // 입실 정상 진행
+						room[selroom - 1] = true;
+						System.out.println(selroom + "번방에 입실하셨습니다.");
+						continue;
+					}
+				} else { // 예외 변수 처리
+					System.out.println("잘못 입력하셨습니다. 1~10번 중에 골라주십시오.");
+					continue;
+				}
+			case 2: // 퇴실
+				System.out.println("몇번방에서 퇴실하시겠습니까?");
+				selroom = sc.nextInt();
+				if (selroom >= 1 && selroom <= 10) { // 방 번호 범위 내 입력 값
+					if (room[selroom - 1] == false) { // 퇴실 중복 발생
+						System.out.println(selroom + "번 방은 현재 빈 방입니다.");
+						continue;
+					} else if (room[selroom - 1]) {
+						room[selroom - 1] = false;
+						System.out.println(selroom + "번방에서 퇴실하셨습니다.");
+						continue;
+					}
+				} else { // 예외 변수 처리
+					System.out.println("잘못 입력하셨습니다. 1~10번 중에 골라주십시오.");
+					continue;
+				}
+			case 3: // 방보기
+				for (int i = 0; i < room.length; i++) { // 1번방부터 10번방까지 반복 배열 출력
+					if (room[i]) {
+						System.out.println((i + 1) + "번 방에는 현재 손님이 있습니다.");
+					} else {
+						System.out.println((i + 1) + "번 방은 현재 비어있습니다.");
+					}
+				}
+				continue;
+			case 4:
+				break;
+			default: // 예외 변수 처리
+				System.out.println("잘못 입력하셨습니다.");
+				continue;
+			}
+			break;
 		}
 	}
 }
