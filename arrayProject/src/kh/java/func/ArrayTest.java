@@ -320,9 +320,10 @@ public class ArrayTest {
 		Scanner sc = new Scanner(System.in);
 		String version = "v1.0"; // 버전 명
 		boolean[] room = new boolean[10];
-		while (true) {
+		boolean bool = true;
+		while (bool) {
 			System.out.println("모텔 관리 프로그램 " + version);
-			System.out.println("1. 입실\t2. 퇴실\t3. 방보기\t4. 종료");
+			System.out.println("1.입실\t2.퇴실\t3.방보기 \t4.종료");
 			System.out.print("선택 > ");
 			int sel = sc.nextInt();
 			switch (sel) {
@@ -330,21 +331,21 @@ public class ArrayTest {
 				System.out.println("몇번방에 입실하시겠습니까?");
 				int selroom = sc.nextInt();
 				if (selroom >= 1 && selroom <= 10) { // 방 번호 범위 내 입력 값
-					if (!room[selroom - 1]) { // 입실 중복 발생
+					if (room[selroom - 1]) { // 입실 중복 발생
 						System.out.println(selroom + "번 방은 현재 손님이 있습니다.");
-					} else if (room[selroom - 1] == false) { // 입실 정상 진행
+					} else if (!room[selroom - 1]) { // 입실 정상 진행
 						room[selroom - 1] = true;
 						System.out.println(selroom + "번방에 입실하셨습니다.");
 					}
 				} else { // 예외 변수 처리
 					System.out.println("잘못 입력하셨습니다. 1~10번 중에 골라주십시오.");
 				}
-				continue;
+				break;
 			case 2: // 퇴실
 				System.out.println("몇번방에서 퇴실하시겠습니까?");
 				selroom = sc.nextInt();
 				if (selroom >= 1 && selroom <= 10) { // 방 번호 범위 내 입력 값
-					if (room[selroom - 1]) { // 퇴실 중복 발생
+					if (!room[selroom - 1]) { // 퇴실 중복 발생
 						System.out.println(selroom + "번 방은 현재 빈 방입니다.");
 					} else if (room[selroom - 1]) {
 						room[selroom - 1] = false;
@@ -353,7 +354,7 @@ public class ArrayTest {
 				} else { // 예외 변수 처리
 					System.out.println("잘못 입력하셨습니다. 1~10번 중에 골라주십시오.");
 				}
-				continue;
+				break;
 			case 3: // 방보기
 				for (int i = 0; i < room.length; i++) { // 1번방부터 10번방까지 반복 배열 출력
 					if (room[i]) {
@@ -362,14 +363,167 @@ public class ArrayTest {
 						System.out.println((i + 1) + "번 방은 현재 비어있습니다.");
 					}
 				}
-				continue;
+				break;
 			case 4:
+				bool = false;
 				break;
 			default: // 예외 변수 처리
 				System.out.println("잘못 입력하셨습니다.");
 				continue;
 			}
-			break;
+		}
+	}
+
+	public void arrayCopy() {
+		int[] arr1 = { 1, 2, 3, 4, 5 };
+		// ★ 얉은 복사 (주소값만 복사해서 같은 배열을 참조하고 있는 상태)
+		int[] arr2 = arr1;
+		arr1[1] = 10;
+		arr2[2] = 30;
+		// 깊은 복사 (새 배열을 만들고 arr1의 값을 복사해오는 상태)
+		int[] arr3 = arr1.clone();
+		int[] arr4 = new int[5];
+		System.arraycopy(arr1, 0, arr4, 0, arr1.length);
+		// ? arraycopy에 1, 3항의 Indext는 배열의 명, 2, 4, 5에는 정수형 타입의 무언가 ? (계산식도 가능?)
+		int[] arr5 = new int[5];
+		for (int i = 0; i < arr1.length; i++) {
+			arr5[i] = arr1[i];
+		}
+		arr1[1] = 100;
+		// 결과
+		for (int i = 0; i < arr1.length; i++) {
+			System.out.print(arr1[i] + " ");
+		}
+		System.out.println();
+		for (int i = 0; i < arr2.length; i++) {
+			System.out.print(arr2[i] + " ");
+		}
+		System.out.println();
+		for (int i = 0; i < arr3.length; i++) {
+			System.out.print(arr3[i] + " ");
+		}
+	}
+
+	public void test2() {
+		int[][] arr = new int[2][3];
+		arr[0][0] = 1;
+		arr[0][1] = 3;
+		arr[0][2] = 5;
+		arr[1][0] = 7;
+		arr[1][1] = 9;
+		arr[1][2] = 11;
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				System.out.print(arr[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
+
+	public void exam11() {
+		int[][] arr = new int[5][5];
+		int num = 0;
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				arr[i][j] = 1 + num++;
+				System.out.print(arr[i][j] + "\t");
+			}
+			System.out.println();
+		}
+	}
+
+	public void exam12() { // 실습 1
+		int[][] arr = new int[5][5];
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				arr[i][j] = 5 * (i + 1) - j;
+				System.out.print(arr[i][j] + "\t");
+			}
+			System.out.println();
+		}
+	}
+
+	public void exam13() { // 실습 2
+		int[][] arr = new int[5][5];
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				arr[i][j] = (1 + i) + (j * 5);
+				System.out.print(arr[i][j] + "\t");
+			}
+			System.out.println();
+		}
+	}
+
+	public void exam14() {
+		int[][] arr = new int[5][5];
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				arr[i][j] = 5 * (j + 1) - i;
+				System.out.print(arr[i][j] + "\t");
+			}
+			System.out.println();
+		}
+	}
+
+	public void exam15() {
+		int[][] arr = new int[5][5];
+		int num = 0;
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				if (i % 2 == 1) { // arr 배열의 홀수 열에서의 조건식
+					arr[i][j] = (i - num) * 10 - j;
+				} else { // arr 배열의 짝수 열에서의 조건식
+					arr[i][j] = (i / 2) * 10 + (1 + j);
+				}
+				System.out.print(arr[i][j] + "\t");
+			}
+			if (i % 2 == 1) { // arr 배열의 행이 홀수일 경우 변수 num++
+				num++;
+			}
+			System.out.println();
+		}
+	}
+
+	public void exam16() {
+		Scanner sc = new Scanner(System.in);
+		Random r = new Random();
+		int vert = 0;
+		int hori = 0;
+		System.out.print("가로행의 개수를 입력하세요(1~10) ==> ");
+		vert = sc.nextInt();
+		System.out.print("세로열의 개수를 입력하세요(1~10) ==> ");
+		hori = sc.nextInt();
+		char[][] arr = new char[hori][vert]; // 배열 선언 세로 hori, 가로 vert
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				arr[i][j] = (char) (r.nextInt(25) + 97);
+				System.out.print(arr[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
+
+	public void exam17() { // 달팽이 배열 1
+		Scanner sc = new Scanner(System.in);
+		System.out.print("2차원 배열 크기 입력(정방형) > ");
+		int num = sc.nextInt();
+		int sum = 1;
+		int[][] arr = new int[num][num];
+		
+		for(int i=0;i>arr.length;i++) {
+			for(int k=0; k>arr[i].length; k++) {
+				if(arr[i][k]==0) {
+					for(k=0; k>arr[i].length; k++) {
+						arr[i][k]=sum;
+						sum++;
+					}
+				}else if(i==num-1) {
+					for(k=0; k>arr[i].length; k++) {
+						arr[i][k]=sum;
+						sum++;
+					}
+				}
+			}
 		}
 	}
 }
