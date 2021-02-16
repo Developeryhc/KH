@@ -316,13 +316,13 @@ public class ArrayTest {
 		}
 	}
 
-	public void Motel() { // 모텔관리 프로그램
+	public void motel() { // 모텔관리 프로그램
 		Scanner sc = new Scanner(System.in);
 		String version = "v1.0"; // 버전 명
 		boolean[] room = new boolean[10];
 		while (true) {
 			System.out.println("모텔 관리 프로그램 " + version);
-			System.out.println("1. 입실\t 2. 퇴실\t 3. 방보기 4. 종료");
+			System.out.println("1. 입실\t2. 퇴실\t3. 방보기\t4. 종료");
 			System.out.print("선택 > ");
 			int sel = sc.nextInt();
 			switch (sel) {
@@ -330,33 +330,30 @@ public class ArrayTest {
 				System.out.println("몇번방에 입실하시겠습니까?");
 				int selroom = sc.nextInt();
 				if (selroom >= 1 && selroom <= 10) { // 방 번호 범위 내 입력 값
-					if (room[selroom - 1]) { // 입실 중복 발생
+					if (!room[selroom - 1]) { // 입실 중복 발생
 						System.out.println(selroom + "번 방은 현재 손님이 있습니다.");
 					} else if (room[selroom - 1] == false) { // 입실 정상 진행
 						room[selroom - 1] = true;
 						System.out.println(selroom + "번방에 입실하셨습니다.");
-						continue;
 					}
 				} else { // 예외 변수 처리
 					System.out.println("잘못 입력하셨습니다. 1~10번 중에 골라주십시오.");
-					continue;
 				}
+				continue;
 			case 2: // 퇴실
 				System.out.println("몇번방에서 퇴실하시겠습니까?");
 				selroom = sc.nextInt();
 				if (selroom >= 1 && selroom <= 10) { // 방 번호 범위 내 입력 값
-					if (room[selroom - 1] == false) { // 퇴실 중복 발생
+					if (room[selroom - 1]) { // 퇴실 중복 발생
 						System.out.println(selroom + "번 방은 현재 빈 방입니다.");
-						continue;
 					} else if (room[selroom - 1]) {
 						room[selroom - 1] = false;
 						System.out.println(selroom + "번방에서 퇴실하셨습니다.");
-						continue;
 					}
 				} else { // 예외 변수 처리
 					System.out.println("잘못 입력하셨습니다. 1~10번 중에 골라주십시오.");
-					continue;
 				}
+				continue;
 			case 3: // 방보기
 				for (int i = 0; i < room.length; i++) { // 1번방부터 10번방까지 반복 배열 출력
 					if (room[i]) {
