@@ -601,8 +601,12 @@ public class ArrayTest {
 
 
 	// 1. n값 입력받음 /  1<n<16
-	// 2. 각 2개의 배열에 랜덤 값 배치 / 각 배열의 각 원소 x는 0 < x < 2^n-1
-	// 3. 각 2개의 배열을 합친 뒤 자료값 출력
+	// 2. 각 2개의 배열 생성
+	// 3. 각 배열의 col값에 랜덤한 수 x 생성 / 1 < x < 2^n-1
+	// 4. x값을 2진수로 변형 -- ing
+	// 5. 각 배열 index의 2진수로 변형된 값을 #으로 표기
+	// 6. 각 배열의 2진수를 합침 ( 1이 있는 값은 1로 표기 )
+	// 7. 자료값 출력
 	
 	public void exam19() { // 카카오 문제 1
 		Scanner sc = new Scanner(System.in);
@@ -615,8 +619,9 @@ public class ArrayTest {
 				int[][] arr2 = new int[range][range];
 				char[][] map = new char[range][range];
 				for(int i=0;i<arr1.length;i++) {
-					for(int i=0;)
+					arr1[i][0]=r.nextInt(2^range-1);
 				}
+				arri[i][0]%2
 				
 				
 				
@@ -626,6 +631,34 @@ public class ArrayTest {
 			}else {
 				System.out.println("2~15사이의 값을 입력해주세요.");
 				continue;
+			}
+		}
+	}
+	public void exam20() {
+		Scanner sc = new Scanner(System.in);
+		Random r = new Random();
+		System.out.print("지도 한 변의 길이 > ");
+		int range = sc.nextInt();
+		int num = 0;
+		if(1<range && range<16) {
+			int[][] arr1 = new int[range][range];
+			int[][] arr2 = new int[range][range];
+			char[][] map = new char[range][range];
+			for(int i=0;i<arr1.length;i++) {
+				arr1[i][num]=r.nextInt(!!!!!!!!);
+				for(int k=0;k>arr1[i].length;k++) {
+					if((arr1[i][num]/(2^(k+1)))%2==0) {
+						map[i][k]=0;
+					}else {
+						arr1[i][k]=1;
+					}
+				}
+			}
+			for(int i=0;i<arr1.length;i++) {
+				for(int k=0;k<arr1[i].length;k++) {
+					System.out.print(arr1[i][k]+"\t");
+				}
+				System.out.println();
 			}
 		}
 	}
