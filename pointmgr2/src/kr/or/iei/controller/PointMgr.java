@@ -11,6 +11,7 @@ public class PointMgr {
 	int gIndex;
 	Vip[] v;
 	int vIndex;
+	char flag; // 등급에 따른 조회 기준 분류 식별자 변수
 	public PointMgr() {
 		super();
 		sc = new Scanner(System.in);
@@ -20,6 +21,7 @@ public class PointMgr {
 		index = 0;
 		gIndex = 0;
 		vIndex = 0;
+		// Silver[] s = new Silver[10];
 	}
 	public void main() {
 		while(true) {
@@ -88,7 +90,8 @@ public class PointMgr {
 			
 		}
 		for(int i=0;i<index;i++) {
-			System.out.println(s[i].getGrade()+"\t"+s[i].getName()+"\t"+s[i].getPoint()+"\t"+s[i].getBonus());			
+			System.out.print(s[i].getGrade()+"\t"+s[i].getName()+"\t"+s[i].getPoint()+"\t");
+			System.out.printf("%.1d",s[i].getBonus());
 		}
 	}
 	public void printOneMember() {
@@ -97,10 +100,22 @@ public class PointMgr {
 		if(searchIndex == -1) {
 			System.out.println("회원 정보가 없습니다.");
 		}else {
-			System.out.println("등급 : "+s[searchIndex].getGrade());
-			System.out.println("이름 : "+s[searchIndex].getName());
-			System.out.println("포인트 : "+s[searchIndex].getPoint());
-			System.out.println("보너스 : "+s[searchIndex].getBonus());
+			if(flag=='v') {
+				System.out.println("등급 : "+v[searchIndex].getGrade());
+				System.out.println("이름 : "+v[searchIndex].getName());
+				System.out.println("포인트 : "+v[searchIndex].getPoint());
+				System.out.println("보너스 : "+v[searchIndex].getBonus());
+			}else if(flag=='g') {
+				System.out.println("등급 : "+g[searchIndex].getGrade());
+				System.out.println("이름 : "+g[searchIndex].getName());
+				System.out.println("포인트 : "+g[searchIndex].getPoint());
+				System.out.println("보너스 : "+g[searchIndex].getBonus());
+			}else if(flag=='s') {
+				System.out.println("등급 : "+s[searchIndex].getGrade());
+				System.out.println("이름 : "+s[searchIndex].getName());
+				System.out.println("포인트 : "+s[searchIndex].getPoint());
+				System.out.println("보너스 : "+s[searchIndex].getBonus());
+			}
 		}
 	}
 	public void modifyMember() {
@@ -110,20 +125,18 @@ public class PointMgr {
 			System.out.println("회원 정보가 없습니다.");
 		}else {
 			System.out.print("등급 입력 : ");
-//			String mGrade = sc.next();
-			s[searchIndex].setGrade(sc.next());
+			String mGrade = sc.next();
 			System.out.print("이름 입력 : ");
-//			String mName = sc.next();
-			s[searchIndex].setName(sc.next());
+			String mName = sc.next();
 			System.out.print("포인트 입력 : ");
-//			int mPoint = sc.nextInt();
-			s[searchIndex].setPoint(sc.nextInt());
-			// 새로운 Silver 객체를 생성해서 해당 객체로 배열의 값을 변경 → 기존 Silver 객체는 GC로 처리
-//			s[searchIndex] = new Silver(mGrade,mName,mPoint);
-			// 기존 Silver 객체의 내부 변수 값을 수정
-//			s[searchIndex].setGrade(mGrade);
-//			s[searchIndex].setName(mName);
-//			s[searchIndex].setPoint(mPoint);
+			int mPoint = sc.nextInt();
+			if(searchIndex<vIndex) {
+				v[searchIndex] = new Vip(mGrade,mName,mPoint);
+			}else if(searchIndex<(vIndex+gIndex)) {
+				g[searchIndex] = new Gold(mGrade,mName,mPoint);
+			}else {
+				s[searchIndex] = new Silver(mGrade,mName,mPoint);
+			}
 			System.out.println("회원 정보 수정 완료");
 		}
 	}
@@ -133,23 +146,60 @@ public class PointMgr {
 		if(searchIndex == -1) {
 			System.out.println("회원 정보가 없습니다.");
 		}else {
-			for(int i=0;i<index-1;i++) {
-				s[i]=s[i+1];
+			if(searchIndex<vIndex) {
+				for(int i=0;i<vIndex-1;i++) {
+					v[i]=v[i+1];
+				}
+				v[--vIndex] = null;
+			}else if(searchIndex<(vIndex+gIndex)) {
+				for(int i=0;i<gIndex-1;i++) {
+					g[i]=g[i+1];
+				}
+				g[--gIndex] = null;
+			}else {
+				for(int i=0;i<index-1;i++) {
+					s[i]=s[i+1];
+				}
+				s[--index] = null;
 			}
-			s[--index]=null;
 			System.out.println("회원 정보 수정 완료");
 		}
 	}
-	/* 내 생각은 .. 어짜피 30명이면 등급별로 순차를 준다음에
-	 * 실버등급이면 vIndex랑 gIndex를 빼면 나머지가 나올꺼고
-	 * 골드등급이면 gIndex랑 index를 빼면 .. ?
+	/* 1. 각 등급별로 조회 후 하위등급일 경우 상위등급 Index 추가 후 리턴
+	 * 2. 등급도 같이 조회 (솔직히 이건 불편할듯 → 나중에 동명이인이 있을경우 다 보여주고 선택할 때 기능이 유용할듯)
+	 * 3. 각 등급의 배열을 처음부터 조사 후 하위등급일 경우 상위등급 Index 추가 후 리턴
+	 * 4. 등급에 맞는 문자형 데이터를 하나 삽입 → 출력 시, 표식에 따른 등급 출력
 	 */
-	public int searchMember(String name) { // 숙제 - 실버에 없음 골드에서 순번
-		for(int i=0;i<index;i++) {
-			if(s[i].getName().equals(name)) {
+	public int searchMember(String name) { // 숙제 - 평균적으로 vip인원이 제일 적음.
+		// 1번 각 등급별로 조회 후 하위등급일 경우 상위등급의 Index를 더한 값으로 리턴 →	이후 출력 시 더한 값 만큼 빼기
+		for(int i=0;i<vIndex;i++) { // 비교 대상이 Vip등급인 경우
+			if(v[i].getName().equals(name)) {
+				flag = 'v';
 				return i;
+				}
 			}
-		}
+		for(int i=0;i<gIndex;i++) {	// 비교 대상이 Gold등급인 경우
+			if(g[i].getName().equals(name)) {
+				flag = 'g';
+				return i;
+				}
+			}
+		for(int i=0;i<index;i++) {	// 비교 대상이 Silver등급인 경우
+			if(s[i].getName().equals(name)) {
+				flag = 's';
+				return i;
+				}
+			}
+		// 3번 각 등급의 배열 첫번째부터 조회해보고 하위 등급 인원이 선정 될 경우 상위 등급 인원을 더한 값을 리턴 → 이후 출력 시 상위등급 index만큼 빼주면 해당 등급의 인원 산출
+//		for(int i=0;i<(vIndex==gIndex?(vIndex>index?vIndex:index):(vIndex>gIndex?(vIndex>index?vIndex:index):gIndex));i++) {
+//			if(v[i].getName().equals(name)) {
+//				return i;
+//			}else if(g[i].getName().equals(name)) {
+//				return (i+vIndex);
+//			}else if(s[i].getName().equals(name)){
+//				return (i+vIndex+gIndex);
+//			}
+//		}
 		return -1;
 	}
 }
