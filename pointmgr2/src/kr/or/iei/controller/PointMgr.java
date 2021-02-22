@@ -130,12 +130,32 @@ public class PointMgr {
 			String mName = sc.next();
 			System.out.print("포인트 입력 : ");
 			int mPoint = sc.nextInt();
-			if(searchIndex<vIndex) {
-				v[searchIndex] = new Vip(mGrade,mName,mPoint);
-			}else if(searchIndex<(vIndex+gIndex)) {
-				g[searchIndex] = new Gold(mGrade,mName,mPoint);
+			if(flag == 'v') {
+				for(int i=searchIndex;i<vIndex;i++) {
+					v[i] = v[i+1];					
+				}
+				v[--vIndex]=null;
+			}else if(flag == 'g') {
+				for(int i=searchIndex;i<gIndex;i++) {
+					g[i] = g[i+1];				
+				}
+				g[--gIndex]=null;
 			}else {
-				s[searchIndex] = new Silver(mGrade,mName,mPoint);
+				for(int i=searchIndex;i<vIndex;i++) {
+					s[i] = s[i+1];
+				}
+				s[--index]=null;
+			}
+			switch(mGrade) {
+			case "vip":
+				v[vIndex++] = new Vip(mGrade,mName,mPoint);
+				break;
+			case "gold":
+				g[gIndex++] = new Gold(mGrade,mName,mPoint);
+				break;
+			case "silver":
+				s[index++] = new Silver(mGrade,mName,mPoint);
+				break;
 			}
 			System.out.println("회원 정보 수정 완료");
 		}
@@ -146,12 +166,12 @@ public class PointMgr {
 		if(searchIndex == -1) {
 			System.out.println("회원 정보가 없습니다.");
 		}else {
-			if(searchIndex<vIndex) {
+			if(flag == 'v') {
 				for(int i=0;i<vIndex-1;i++) {
 					v[i]=v[i+1];
 				}
 				v[--vIndex] = null;
-			}else if(searchIndex<(vIndex+gIndex)) {
+			}else if(flag == 'g') {
 				for(int i=0;i<gIndex-1;i++) {
 					g[i]=g[i+1];
 				}
