@@ -45,12 +45,20 @@ public class StudentView {
 			System.out.println(s[i].getName()+"\t"+s[i].getAge()+"\t"+s[i].getAddr());
 		}
 	}
-	public String printOneStudent() {
-		System.out.println("===== 학생 정보 조회(단일) =====");
-		System.out.print("조회할 학생 이름 : ");
-		return sc.next();
+	public void printOneStudent(Student[] s, int searchIndex) {
+		if(searchIndex == -1) {
+			System.out.println("해당 학생이 조회되지 않습니다.");
+		}else {
+			System.out.println("===== 학생 정보 조회(단일) =====");
+			System.out.println("학생 이름 : "+s[searchIndex].getName());
+			System.out.println("학생 나이 : "+s[searchIndex].getAge());
+			System.out.println("학생 주소 : "+s[searchIndex].getAddr());
+			System.out.println("==============================");
+			System.out.println("\t학생 정보 출력 완료");
+		}
 	}
-	public void printOneStudent(Student s) {
-//		System.out.println("학생 이름 : "+s[i].g);
+	public String searchName() {
+		System.out.println("조회할 학생 이름 : ");
+		return sc.next();
 	}
 }
