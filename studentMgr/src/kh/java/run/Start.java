@@ -1,10 +1,10 @@
 package kh.java.run;
-import kh.java.func.ArrayTest;
+import kh.java.control.StudentMgr;
 public class Start {
 
 	public static void main(String[] args) {
-		ArrayTest at = new ArrayTest();
-		at.exam2();
+		StudentMgr sdm = new StudentMgr();
+		sdm.main();
 	}
 
 }

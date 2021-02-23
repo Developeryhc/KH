@@ -608,58 +608,58 @@ public class ArrayTest {
 	// 6. 각 배열의 2진수를 합침 ( 1이 있는 값은 1로 표기 )
 	// 7. 자료값 출력
 	
-	public void exam19() { // 카카오 문제 1
-		Scanner sc = new Scanner(System.in);
-		Random r = new Random();
-		while(true){
-			System.out.print("지도 한 변의 길이 > ");
-			int range = sc.nextInt();
-			if(1<range && range<16) {
-				int[][] arr1 = new int[range][range];
-				int[][] arr2 = new int[range][range];
-				char[][] map = new char[range][range];
-				for(int i=0;i<arr1.length;i++) {
-					arr1[i][0]=r.nextInt(2^range-1);
-				}
-				arri[i][0]%2
-				
-				
-				
-				
-				
-				
-			}else {
-				System.out.println("2~15사이의 값을 입력해주세요.");
-				continue;
-			}
-		}
-	}
-	public void exam20() {
-		Scanner sc = new Scanner(System.in);
-		Random r = new Random();
-		System.out.print("지도 한 변의 길이 > ");
-		int range = sc.nextInt();
-		int num = 0;
-		if(1<range && range<16) {
-			int[][] arr1 = new int[range][range];
-			int[][] arr2 = new int[range][range];
-			char[][] map = new char[range][range];
-			for(int i=0;i<arr1.length;i++) {
-				arr1[i][num]=r.nextInt(!!!!!!!!);
-				for(int k=0;k>arr1[i].length;k++) {
-					if((arr1[i][num]/(2^(k+1)))%2==0) {
-						map[i][k]=0;
-					}else {
-						arr1[i][k]=1;
-					}
-				}
-			}
-			for(int i=0;i<arr1.length;i++) {
-				for(int k=0;k<arr1[i].length;k++) {
-					System.out.print(arr1[i][k]+"\t");
-				}
-				System.out.println();
-			}
-		}
-	}
+//	public void exam19() { // 카카오 문제 1
+//		Scanner sc = new Scanner(System.in);
+//		Random r = new Random();
+//		while(true){
+//			System.out.print("지도 한 변의 길이 > ");
+//			int range = sc.nextInt();
+//			if(1<range && range<16) {
+//				int[][] arr1 = new int[range][range];
+//				int[][] arr2 = new int[range][range];
+//				char[][] map = new char[range][range];
+//				for(int i=0;i<arr1.length;i++) {
+//					arr1[i][0]=r.nextInt(2^range-1);
+//				}
+//				arri[i][0]%2
+//				
+//				
+//				
+//				
+//				
+//				
+//			}else {
+//				System.out.println("2~15사이의 값을 입력해주세요.");
+//				continue;
+//			}
+//		}
+//	}
+//	public void exam20() {
+//		Scanner sc = new Scanner(System.in);
+//		Random r = new Random();
+//		System.out.print("지도 한 변의 길이 > ");
+//		int range = sc.nextInt();
+//		int num = 0;
+//		if(1<range && range<16) {
+//			int[][] arr1 = new int[range][range];
+//			int[][] arr2 = new int[range][range];
+//			char[][] map = new char[range][range];
+//			for(int i=0;i<arr1.length;i++) {
+//				arr1[i][num]=r.nextInt(!!!!!!!!);
+//				for(int k=0;k>arr1[i].length;k++) {
+//					if((arr1[i][num]/(2^(k+1)))%2==0) {
+//						map[i][k]=0;
+//					}else {
+//						arr1[i][k]=1;
+//					}
+//				}
+//			}
+//			for(int i=0;i<arr1.length;i++) {
+//				for(int k=0;k<arr1[i].length;k++) {
+//					System.out.print(arr1[i][k]+"\t");
+//				}
+//				System.out.println();
+//			}
+//		}
+//	}
 }

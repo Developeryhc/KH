@@ -204,7 +204,7 @@ public class PointMgr {
 		}
 	}
 	public void printGradeMember() {
-		
+		System.out.println();
 	}
 	public int searchMember(String searchName) {
 		for(int i=0;i<index.length;i++) {
